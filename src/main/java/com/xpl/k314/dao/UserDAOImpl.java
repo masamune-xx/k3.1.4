@@ -40,6 +40,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void deleteUser(int id) {
-        entityManager.remove(getUserById(id));
+        entityManager.createQuery("delete from User u where u.id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
     }
 }
