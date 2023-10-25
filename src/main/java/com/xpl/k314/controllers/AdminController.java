@@ -7,10 +7,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -31,13 +35,16 @@ public class AdminController {
     }
 
     @PostMapping("/{id}")
-    public String userSave(@ModelAttribute("user") User user,
+    public String userEdit(@ModelAttribute("user") User user,
                            @RequestParam("roleIds") List<Integer> roleIds) {
-        user.setRoles(roleIds
-                .stream()
-                .map(roleService::getRoleById)
-                .collect(Collectors.toSet()));
-        userService.saveUser(user);
+        userService.saveUserWithRoles(user, roleIds);
+        return "redirect:/admin";
+    }
+
+    @PostMapping({"/", ""})
+    public String userCreate(@ModelAttribute("user") User user,
+                             @RequestParam("roleIds") List<Integer> roleIds) {
+        userService.saveUserWithRoles(user, roleIds);
         return "redirect:/admin";
     }
 

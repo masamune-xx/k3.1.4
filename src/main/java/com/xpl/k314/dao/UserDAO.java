@@ -1,7 +1,5 @@
 package com.xpl.k314.dao;
 
-
-
 import com.xpl.k314.models.User;
 
 import java.util.List;

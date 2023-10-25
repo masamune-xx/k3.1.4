@@ -1,6 +1,5 @@
 package com.xpl.k314.dao;
 
-
 import com.xpl.k314.models.Role;
 
 import java.util.List;

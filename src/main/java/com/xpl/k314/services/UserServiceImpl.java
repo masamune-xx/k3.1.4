@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -17,10 +18,13 @@ public class UserServiceImpl implements UserService {
 
     private final UserDAO userDAO;
 
+    private final RoleService roleService;
+
     private final PasswordEncoder encoder;
 
-    public UserServiceImpl(UserDAO userDAO, @Lazy PasswordEncoder encoder) {
+    public UserServiceImpl(UserDAO userDAO, RoleService roleService, @Lazy PasswordEncoder encoder) {
         this.userDAO = userDAO;
+        this.roleService = roleService;
         this.encoder = encoder;
     }
 
@@ -43,6 +47,15 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         userDAO.saveUser(user);
+    }
+
+    @Override
+    public void saveUserWithRoles(User user, List<Integer> roleIds) {
+        user.setRoles(roleIds
+                .stream()
+                .map(roleService::getRoleById)
+                .collect(Collectors.toSet()));
+        saveUser(user);
     }
 
     @Override
