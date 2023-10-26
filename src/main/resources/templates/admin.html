@@ -129,14 +129,16 @@
                                                                    id="firstName-edit"
                                                                    type="text"
                                                                    th:name="firstName"
-                                                                   th:value="*{firstName}">
+                                                                   th:value="*{firstName}"
+                                                                   required>
 
                                                             <label for="lastName-edit"><b>Last name</b></label>
                                                             <input class="form-control mb-3"
                                                                    id="lastName-edit"
                                                                    type="text"
                                                                    th:name="lastName"
-                                                                   th:value="*{lastName}">
+                                                                   th:value="*{lastName}"
+                                                                   required>
 
                                                             <label for="age-edit"><b>Age</b></label>
                                                             <input class="form-control mb-3"
@@ -150,13 +152,15 @@
                                                                    id="email-edit"
                                                                    type="email"
                                                                    th:name="email"
-                                                                   th:value="*{email}">
+                                                                   th:value="*{email}"
+                                                                   required>
 
                                                             <label for="password-edit"><b>Password</b></label>
                                                             <input class="form-control mb-3"
                                                                    id="password-edit"
                                                                    type="password"
-                                                                   th:name="password">
+                                                                   th:name="password"
+                                                                   required>
 
                                                             <label for="role-edit"><b>Role</b></label>
                                                             <select class="form-select"
