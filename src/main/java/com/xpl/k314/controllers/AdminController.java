@@ -4,7 +4,6 @@ import com.xpl.k314.models.User;
 import com.xpl.k314.services.RoleService;
 import com.xpl.k314.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,8 +28,8 @@ public class AdminController {
     private final RoleService roleService;
 
     @GetMapping({"/", ""})
-    public String userList(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("user", user);
+    public String userList(Principal principal, Model model) {
+        model.addAttribute("principal", userService.getUserByEmail(principal.getName()));
         model.addAttribute("newUser", new User());
         model.addAttribute("users", userService.getUserList());
         model.addAttribute("roles", roleService.getRoleList());

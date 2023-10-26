@@ -1,12 +1,12 @@
 package com.xpl.k314.controllers;
 
-import com.xpl.k314.models.User;
 import com.xpl.k314.services.UserService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/user")
@@ -19,8 +19,8 @@ public class UserController {
     }
 
     @GetMapping({"/", ""})
-    public String userInfo(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("user", user);
+    public String userInfo(Principal principal, Model model) {
+        model.addAttribute("principal", userService.getUserByEmail(principal.getName()));
         return "user";
     }
 }

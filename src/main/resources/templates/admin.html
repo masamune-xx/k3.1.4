@@ -17,9 +17,9 @@
 <nav class="navbar bg-dark bg-gradient">
     <div class="container-fluid">
         <a class="navbar-brand text-white">
-            <b><span th:text="${user.email}"></span></b>
+            <b><span th:text="${principal.email}"></span></b>
             <span>with roles:</span>
-            <span th:text="${#strings.setJoin(user.roles, ', ')}"></span>
+            <span th:text="${#strings.setJoin(principal.roles, ', ')}"></span>
         </a>
         <form th:action="@{/logout}" method="post">
             <button type="submit" class="btn text-white-50">Logout</button>
